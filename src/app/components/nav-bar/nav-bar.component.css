@@ -1,0 +1,16 @@
+header {
+    background-color: #262626;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+svg {
+    color: #a5f3fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
