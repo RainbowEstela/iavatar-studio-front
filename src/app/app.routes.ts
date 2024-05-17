@@ -7,11 +7,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
-    {path: 'home', component: HomeComponent},
-    {path: 'editor', component: EditorComponent},
-    {path: 'historico', component: HistoricoComponent},
-    {path: 'like', component: LikeComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    {path: 'home', title: "IAvatar Studio - Home", component: HomeComponent},
+    {path: 'editor', title: "IAvatar Studio - Editor",component: EditorComponent},
+    {path: 'historico', title: "IAvatar Studio - Historico",component: HistoricoComponent},
+    {path: 'like', title: "IAvatar Studio - Favoritos",component: LikeComponent},
+    {path: 'login', title: "IAvatar Studio - Login",component: LoginComponent},
+    {path: 'register', title: "IAvatar Studio - Registro",component: RegisterComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'}
 ];

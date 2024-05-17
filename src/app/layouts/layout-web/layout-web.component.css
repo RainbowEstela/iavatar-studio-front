@@ -1,0 +1,28 @@
+main {
+    background-color: white;
+}
+
+.container-layout {
+    background-color: #f3f4f6;
+}
+
+@media (min-width: 640px) {
+    main {
+        margin: 0 auto;
+        width: 80%;
+    }
+}
+
+@media (min-width: 768px) {
+    main {
+        margin: 0 auto;
+        width: 70%;
+    }
+}
+
+@media (min-width: 1024px) {
+    main {
+        margin: 0 auto;
+        width: 60%;
+    }
+}
