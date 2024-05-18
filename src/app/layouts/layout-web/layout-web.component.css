@@ -3,6 +3,11 @@ main {
 }
 
 .container-layout {
+    background-color: #262626;
+    min-height: 100vh;
+}
+
+.main-wrapper {
     background-color: #f3f4f6;
 }
 
