@@ -2,24 +2,14 @@
     <div class="img-container">
         <img src="assets/imgs/icon.png" alt="Logo de IAvatar Studio">
     </div>
+    <div>
+        <h2>{{titulo}}</h2>
+    </div>
     <div class="form-container">
-        <form action="" class="form-account-style">
-            <div>
-                <label for="nick">Apodo</label>
-                <input type="text" id="nick" placeholder="apodo">
-            </div>
-       
-            <div>
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" placeholder="contraseña">
-            </div>
-           <div class="boton-envio">
-            <button type="submit">Enviar</button>
-           </div>
-        </form>
+        <ng-content></ng-content>
     </div>
     <div class="enlaces-container">
-        <a routerLink="/register">¿No tiene cuenta? Registrese</a>
+        <a routerLink="{{url}}">{{urlName}}</a>
         <a routerLink="/home">Volver a la página principal</a>
     </div>    
 </div>

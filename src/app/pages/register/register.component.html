@@ -1,1 +1,22 @@
-<p>register works!</p>
+<app-layout-login>
+    <app-account-form-wrapper titulo="Registro" url="/login" urlName="¿Ya tiene una cuenta? Inicie sesión">
+        <form action="" class="form-account-style">
+            <div>
+                <label for="nick">Apodo</label>
+                <input type="text" id="nick" placeholder="apodo">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="email">
+            </div>
+       
+            <div>
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="contraseña">
+            </div>
+           <div class="boton-envio">
+            <button type="submit">Enviar</button>
+           </div>
+        </form>
+    </app-account-form-wrapper>   
+</app-layout-login>
