@@ -14,7 +14,7 @@ import { DropdownLinkComponent } from '../dropdown-link/dropdown-link.component'
 })
 export class NavBarComponent implements OnInit{
   
-  logeado:Boolean = false
+  logeado:Boolean = true
 
   ngOnInit(): void {
   
