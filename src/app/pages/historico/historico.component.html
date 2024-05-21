@@ -1,3 +1,18 @@
 <app-layout-web>
-    historico
+    <section class="padding-pagina">
+        <div>
+            <h2>Histórico</h2>
+            <h3>Listado de avatares creados</h3>
+        </div>
+        <!-- Poner aqui si hay tiempo un paginador --> 
+        <div class="cards-container">
+            @if(avatares.length == 0) {
+               <p class="error-message">Aun no tiene ningun avatar, pulse <a routerLink="/editor" class="enlace">aquí</a> empezar a crear avatares personalizados</p> 
+            } @else {
+                @for (avatar of this.avatares; track $index) {
+                    <app-card-historico [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito"></app-card-historico>
+                }
+            }
+        </div>
+    </section>
 </app-layout-web>

@@ -32,7 +32,6 @@
 }
 
 section {
-    padding: 35px 20px;
     display: flex;
     flex-direction: column;
     gap: 35px;
