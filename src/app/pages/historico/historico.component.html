@@ -10,7 +10,7 @@
                <p class="error-message">Aun no tiene ningun avatar, pulse <a routerLink="/editor" class="enlace">aquí</a> empezar a crear avatares personalizados</p> 
             } @else {
                 @for (avatar of this.avatares; track $index) {
-                    <app-card-historico [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito"></app-card-historico>
+                    <app-card-historico [id]="avatar.id" [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito"></app-card-historico>
                 }
             }
         </div>

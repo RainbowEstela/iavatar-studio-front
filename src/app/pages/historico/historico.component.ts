@@ -15,21 +15,25 @@ export class HistoricoComponent {
 
   constructor() {
     this.avatares.push({
+      "id":1,
       "fecha":"22-06-1998",
       "img":"1.png",
       "favorito":false
     })
     this.avatares.push({
+      "id":2,
       "fecha":"22-06-1998",
       "img":"3.png",
       "favorito":true
     })
     this.avatares.push({
+      "id":3,
       "fecha":"22-06-1998",
       "img":"4.png",
       "favorito":false
     })
     this.avatares.push({
+      "id":4,
       "fecha":"22-06-1998",
       "img":"5.png",
       "favorito":true

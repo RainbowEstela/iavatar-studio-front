@@ -9,11 +9,22 @@ img {
     padding: 20px 0;
 }
 
-.datos {
-    width: 100%;
+.marco-favorito {
+    box-shadow: inset -54px -64px 89px -91px #f43f5e;
 }
 
-button {
+.datos {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.container-img{
+    height: 100%;
+}
+
+.btn-fav {
     background-color: #0f172a;
     border: none;
     border-radius: 50%;
@@ -25,9 +36,31 @@ button {
     justify-content: center;
 }
 
-button:active {
+.btn-fav:active {
     background-color: #1e40af;
 }
+
+.btn-ver {
+    padding: 9px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #0284c7;
+    border: none;
+    border-radius: 15px;
+    color: white;
+}
+
+.btn-ver:hover {
+    outline: 3px solid #a5f3fc;
+    box-shadow: inset 43px 32px 61px -43px #a5f3fc;
+}
+
+.btn-ver:active {
+    box-shadow: inset 43px 32px 61px -43px #a5f3fc;
+    background-color: #0f172a;
+}
+
+
 
 button div {
     
@@ -42,4 +75,45 @@ button div {
 
 .no-favorito {
     color: #94a3b8;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+@media (min-width: 640px) {
+    .marco {
+        height: 150px;
+        
+    }
+}
+
+@media (min-width: 768px) {
+    .marco {
+        height: 200px;
+        justify-content: center;
+    }
+
+    .fecha-p {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .marco {
+        height: 200px;
+    }
+
+    .fecha-p {
+        font-size: 20px;
+    }
+
+    .datos {
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 20px;
+    }
 }
