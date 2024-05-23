@@ -2,5 +2,22 @@
     <section class="padding-pagina">
         <h2>Favoritos</h2>
         <h3>Listado de todos sus avatares favoritos</h3>
+       
+            
+        @if(avatares.length == 0) {
+            <div class="cards-container">
+                <p class="error-message">Aun no tiene avatares favoritos, pulse <a routerLink="/historico" class="enlace">aquí</a> y elija los que más le gusten</p> 
+            </div>
+        } @else {
+            <div class="cards-container grid-cards">
+
+                @for (avatar of this.avatares; track $index) {
+                    <div class="card">
+                        <app-card-favorito [id]="avatar.id" [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito"></app-card-favorito>  
+                    </div>
+                }
+            </div>
+        }
+            
     </section>
 </app-layout-web>
