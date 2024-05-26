@@ -1,0 +1,19 @@
+.disclaimer-container {
+    background-color: #18181b;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 3px solid #fbbf24;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.importante {
+    color: #fbbf24;
+}
+
+.mensaje {
+    display: flex;
+    gap: 10px;
+}
