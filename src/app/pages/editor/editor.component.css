@@ -8,3 +8,7 @@ h3 {
     padding-top: 20px;
     gap: 20px;
 }
+
+img {
+    filter: invert(17%) sepia(94%) saturate(1606%) hue-rotate(208deg) brightness(94%) contrast(89%);
+}
