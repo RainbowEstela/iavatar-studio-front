@@ -2,6 +2,10 @@
 .previsualizador {
     position: relative;
     width: 100%;
+    border: 3px solid #262626;
+    border-radius: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .placeholder-img {
@@ -38,7 +42,7 @@
     animation:spin 1s linear infinite;
 }
 
-
+/* ANIMACION DE PANTALLA DE CARGA */
 @-moz-keyframes spin { 
 100% { -moz-transform: rotate(360deg); } 
 }
@@ -51,3 +55,64 @@
     transform:rotate(360deg); 
 } 
 }
+
+/* estilos de menu de categorias */
+
+.container-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #262626;
+    border: 2px solid #171717;
+    box-sizing: border-box;
+}
+
+.container-categorias div {
+    color: white;
+    cursor: pointer;
+    padding: 20px;
+    border-right: 2px solid #171717;
+    border-bottom: 2px solid #171717;
+    box-sizing: border-box;
+}
+
+.opcion-activa {
+    background-color: #0891b2;
+}
+
+
+
+.container-opciones > div {
+    padding: 10px 20px;
+    border-bottom: 2px solid #171717;
+    border-left: 2px solid #171717;
+    border-right: 2px solid #171717;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e7e5e4;
+}
+
+.elecc-des {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
+}
+
+.elecc-des > div {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #171717;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+
+.elecc-des > div > img {
+    width: 100%;
+} 
+
+.elecc-activa {
+    border: 2px solid #0891b2 !important;
+}
+
