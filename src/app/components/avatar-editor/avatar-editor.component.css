@@ -92,13 +92,17 @@
     background-color: #e7e5e4;
 }
 
-.elecc-des {
+.grid {
     display: grid;
     grid-template-columns: auto auto auto auto;
     gap: 10px;
 }
 
-.elecc-des > div {
+.p20 {
+    padding-top: 20px;
+}
+
+.btn-elec {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
@@ -108,7 +112,7 @@
 
 }
 
-.elecc-des > div > img {
+.elecc-des img {
     width: 100%;
 } 
 
@@ -116,3 +120,27 @@
     border: 2px solid #0891b2 !important;
 }
 
+.negro {
+    filter: invert(3%) sepia(97%) saturate(33%) hue-rotate(345deg) brightness(81%) contrast(106%);
+
+}
+
+.marron {
+    filter: invert(34%) sepia(40%) saturate(535%) hue-rotate(350deg) brightness(95%) contrast(88%);
+}
+
+.rojo {
+    filter: invert(22%) sepia(6%) saturate(4088%) hue-rotate(352deg) brightness(97%) contrast(88%); 
+}
+
+.amarillo {
+    filter: invert(20%) sepia(99%) saturate(1235%) hue-rotate(20deg) brightness(101%) contrast(102%);
+}
+
+.verde {
+    filter: invert(16%) sepia(91%) saturate(229%) hue-rotate(56deg) brightness(94%) contrast(94%);
+    }
+
+.azul {
+    filter: invert(15%) sepia(18%) saturate(1247%) hue-rotate(209deg) brightness(96%) contrast(94%);
+}
