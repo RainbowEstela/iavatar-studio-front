@@ -14,6 +14,8 @@ export class AvatarEditorComponent implements OnInit {
 
   Prompt:String = "";
 
+  favorito:boolean = false;
+
   ngOnInit(): void {
 
     // esconder todos las las caracteristicas
@@ -30,6 +32,7 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='nar-elecc-des']").on("click",this.eleccionNariz);
     $("div[class~='boc-elecc-des']").on("click",this.eleccionBoca);
     $("div[class~='ojo-color-elecc']").on("click",this.eleccionColorOjos);
+    $("div[class~='pel-color-elecc']").on("click",this.eleccionColorPelo);
 
     // inicializar caracteristicas
     
@@ -143,14 +146,54 @@ export class AvatarEditorComponent implements OnInit {
    
     if(color) {
       
-      $("div[class~='ojos'] > img").removeClass("negro");
-      $("div[class~='ojos'] > img").removeClass("marron");
-      $("div[class~='ojos'] > img").removeClass("rojo");
-      $("div[class~='ojos'] > img").removeClass("amarillo");
-      $("div[class~='ojos'] > img").removeClass("verde");
-      $("div[class~='ojos'] > img").removeClass("azul");
+      $("img[class~='iris']").removeClass("negro");
+      $("img[class~='iris']").removeClass("marron");
+      $("img[class~='iris']").removeClass("rojo");
+      $("img[class~='iris']").removeClass("amarillo");
+      $("img[class~='iris']").removeClass("verde");
+      $("img[class~='iris']").removeClass("azul");
       
-      $("div[class~='ojos'] > img").addClass(color);
+      $("img[class~='iris']").addClass(color);
+    }
+  }
+
+
+  // cambia la eleccion del color del pelo
+  eleccionColorPelo(e:any) {
+    $("div[class~='pel-color-elecc']").removeClass("elecc-activa");
+    $(e.target).closest("div[class~='pel-color-elecc']").addClass("elecc-activa");
+
+    var color = $(e.target).closest("div[class~='pel-color-elecc']").attr("color")
+    
+
+   
+    if(color) {
+      
+      $("div[class~='fondo'] > img").removeClass("negro");
+      $("div[class~='fondo'] > img").removeClass("marron");
+      $("div[class~='fondo'] > img").removeClass("rojo");
+      $("div[class~='fondo'] > img").removeClass("amarillo");
+      $("div[class~='fondo'] > img").removeClass("verde");
+      $("div[class~='fondo'] > img").removeClass("azul");
+
+      $("div[class~='peinados'] > img").removeClass("negro");
+      $("div[class~='peinados'] > img").removeClass("marron");
+      $("div[class~='peinados'] > img").removeClass("rojo");
+      $("div[class~='peinados'] > img").removeClass("amarillo");
+      $("div[class~='peinados'] > img").removeClass("verde");
+      $("div[class~='peinados'] > img").removeClass("azul");
+
+      $("img[class~='cejas']").removeClass("negro");
+      $("img[class~='cejas']").removeClass("marron");
+      $("img[class~='cejas']").removeClass("rojo");
+      $("img[class~='cejas']").removeClass("amarillo");
+      $("img[class~='cejas']").removeClass("verde");
+      $("img[class~='cejas']").removeClass("azul");
+      
+      $("div[class~='fondo'] > img").addClass(color);
+      $("div[class~='peinados'] > img").addClass(color);
+      $("img[class~='cejas']").addClass(color);
+
     }
   }
 

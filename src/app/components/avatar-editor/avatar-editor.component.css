@@ -92,9 +92,9 @@
     background-color: #e7e5e4;
 }
 
-.grid {
+.grid { 
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
 
@@ -130,17 +130,107 @@
 }
 
 .rojo {
-    filter: invert(22%) sepia(6%) saturate(4088%) hue-rotate(352deg) brightness(97%) contrast(88%); 
+    filter: invert(13%) sepia(67%) saturate(6386%) hue-rotate(6deg) brightness(74%) contrast(118%);
 }
 
 .amarillo {
-    filter: invert(20%) sepia(99%) saturate(1235%) hue-rotate(20deg) brightness(101%) contrast(102%);
+    filter: invert(63%) sepia(46%) saturate(1254%) hue-rotate(14deg) brightness(108%) contrast(109%);
 }
 
 .verde {
-    filter: invert(16%) sepia(91%) saturate(229%) hue-rotate(56deg) brightness(94%) contrast(94%);
-    }
+    filter: invert(45%) sepia(65%) saturate(4489%) hue-rotate(74deg) brightness(97%) contrast(103%);
+}
 
 .azul {
-    filter: invert(15%) sepia(18%) saturate(1247%) hue-rotate(209deg) brightness(96%) contrast(94%);
+    filter: invert(13%) sepia(23%) saturate(7475%) hue-rotate(242deg) brightness(86%) contrast(132%);
+}
+
+.favorito svg {
+    color: #f43f5e;
+}
+
+.no-favorito {
+    color: #94a3b8;
+}
+
+.botones {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-ver {
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #65a30d;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-ver:hover {
+    outline: 3px solid #15803d;
+    
+}
+
+.btn-ver:active {
+    box-shadow: inset 43px 32px 61px -43px #a5f3fc;
+    background-color: #0f172a;
+}
+
+.btn-fav {
+    background-color: #0f172a;
+    border: none;
+    border-radius: 50%;
+    padding: 9px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-fav:active {
+    background-color: #1e40af;
+}
+
+.container-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+@media (min-width: 640px) {
+    .previsualizador {
+     
+        width: 70%;
+
+    }
+}
+
+@media (min-width: 768px) {
+
+    .previsualizador {
+     
+        width: 60%;
+
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .previsualizador {
+     
+        width: 50%;
+
+    }
+  
 }
