@@ -1,11 +1,11 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, Input, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dropdown-link',
   standalone: true,
-  imports: [RouterLink,NgClass],
+  imports: [RouterLink,NgClass,NgIf],
   templateUrl: './dropdown-link.component.html',
   styleUrl: './dropdown-link.component.css'
 })

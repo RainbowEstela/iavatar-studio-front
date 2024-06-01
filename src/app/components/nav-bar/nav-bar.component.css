@@ -7,3 +7,23 @@ header {
     align-items: center;
     padding: 10px 20px;
 }
+
+
+/* ESTILOS DEL BOTON SALIR */
+.logout-btn li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-top: 2px solid #9ca3af;
+}
+
+.logout-btn {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.logout-btn:hover {
+    color: #0ea5e9;
+}

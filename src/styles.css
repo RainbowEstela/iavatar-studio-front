@@ -39,6 +39,10 @@ p {
     border-radius: 10px;
 }
 
+.error-border {
+    border: 2px solid red !important;
+}
+
 .boton-envio {
     display: flex;
     align-items: center;

@@ -2,8 +2,8 @@
     <app-account-form-wrapper titulo="Registro" url="/login" urlName="¿Ya tiene una cuenta? Inicie sesión">
         <form action="" class="form-account-style">
             <div>
-                <label for="nick">Apodo</label>
-                <input type="text" id="nick" placeholder="apodo">
+                <label for="nick">Usuario</label>
+                <input type="text" id="nick" placeholder="Usuario">
             </div>
             <div>
                 <label for="email">Email</label>
@@ -18,5 +18,20 @@
             <button type="submit">Enviar</button>
            </div>
         </form>
-    </app-account-form-wrapper>   
+        <div class="exito-reg">
+            <div>
+                <h2>¡Nuevo usuario registrado con existo!</h2>
+            </div>
+    
+            <div>
+                <p>Usuario: <span></span></p>
+                <p>Email: <span></span></p>
+            </div>
+    
+            <div>
+                <button>Iniciar sesion</button>
+            </div>
+        </div>
+    </app-account-form-wrapper>
+   
 </app-layout-login>
