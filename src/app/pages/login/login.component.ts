@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit {
         next: (data) => 
         {
           // guardamos la sesion en local storaga
-          localStorage.setItem("currentUser", JSON.stringify(data.username))
-          localStorage.setItem("token", JSON.stringify(data.token))
+          localStorage.setItem("currentUser", data.username.toString())
+          localStorage.setItem("token", data.token.toString())
           
           // redirigimos a la pagina principal
           this.router.navigate(['/home']);

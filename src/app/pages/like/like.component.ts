@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { LayoutWebComponent } from '../../layouts/layout-web/layout-web.component';
 import { CardFavoritoComponent } from '../../components/card-favorito/card-favorito.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { BackIavatarService } from '../../core/services/back-iavatar.service';
 
 @Component({
   selector: 'app-like',
@@ -12,39 +13,37 @@ import { RouterLink } from '@angular/router';
 })
 export class LikeComponent {
   avatares:Array<any> = [];
-  
-  constructor() {
-    
-    this.avatares.push({
-      "id":2,
-      "fecha":"22-06-1998",
-      "img":"3.png",
-      "favorito":true
+
+  constructor(private service:BackIavatarService, private router:Router) {
+    this.actualizarValores();
+
+  }
+
+  // llama a la api para buscar las imagenes del usuario
+  actualizarValores() {
+
+    // reseteamos el array
+    this.avatares = [];
+
+    this.service.imagenesFavorito().subscribe({
+      next: (data) => 
+      {
+        // guardamos los valores necesarios en el array
+        for (const key in data) {
+          this.avatares.push({
+            "id":data[key].id,
+            "fecha":data[key].fechaCreacion,
+            "img":data[key].imagenNombre,
+            "favorito":data[key].favorito,
+          })
+        }
+        
+
+      },
+      error: (error) =>
+      {
+        console.log("hubo un error" + error);
+      }
     })
-    this.avatares.push({
-      "id":4,
-      "fecha":"22-06-1998",
-      "img":"5.png",
-      "favorito":true
-    })
-    this.avatares.push({
-      "id":4,
-      "fecha":"22-06-1998",
-      "img":"5.png",
-      "favorito":true
-    })
-    this.avatares.push({
-      "id":4,
-      "fecha":"22-06-1998",
-      "img":"5.png",
-      "favorito":true
-    })
-    this.avatares.push({
-      "id":4,
-      "fecha":"22-06-1998",
-      "img":"5.png",
-      "favorito":false
-    })
-  
   }
 }

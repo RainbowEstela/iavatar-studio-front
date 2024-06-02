@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutLoginComponent } from '../../layouts/layout-login/layout-login.component';
 import { AccountFormWrapperComponent } from '../../components/account-form-wrapper/account-form-wrapper.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BackIavatarService } from '../../core/services/back-iavatar.service';
 import $, { event } from 'jquery';
 
@@ -14,7 +14,7 @@ import $, { event } from 'jquery';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private service:BackIavatarService) {
+  constructor(private service:BackIavatarService, private router:Router) {
 
   }
 
@@ -84,8 +84,33 @@ export class RegisterComponent implements OnInit {
     .subscribe({
       next: (data) => 
         {
-          $("form[class~='form-account-style']").hide();
-          $("div[class~='exito-reg']").show();
+
+          // enviar la peticion
+          let user = this.service.postLogin(username,password);
+          user.subscribe(
+            {
+              next: (data) => 
+              {
+                // guardamos la sesion en local storaga
+                localStorage.setItem("currentUser", data.username.toString())
+                localStorage.setItem("token", data.token.toString())
+                
+                // redirigimos a la pagina principal
+                this.router.navigate(['/home']);
+                console.log("welcome " + data.username);
+
+              },
+              error: (error) =>
+              {
+                $("input[id='nick']").addClass("error-border")
+                $("input[id='password']").addClass("error-border")
+
+                alert("Error en usuario o contraseña")
+
+                console.log("hubo un error");
+              }
+            }
+          )
 
 
         },

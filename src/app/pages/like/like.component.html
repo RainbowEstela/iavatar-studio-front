@@ -13,7 +13,7 @@
 
                 @for (avatar of this.avatares; track $index) {
                     <div class="card">
-                        <app-card-favorito [id]="avatar.id" [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito"></app-card-favorito>  
+                        <app-card-favorito [id]="avatar.id" [img]="avatar.img" [fecha]="avatar.fecha" [favorito]="avatar.favorito" (actualizarLista)="this.actualizarValores()"></app-card-favorito>  
                     </div>
                 }
             </div>

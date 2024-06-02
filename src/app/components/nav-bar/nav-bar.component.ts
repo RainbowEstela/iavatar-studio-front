@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit{
   
   logeado:Boolean = true
+  usuarioSesion:String = "";
 
   constructor(private router:Router) {
     this.checkLogin();
@@ -38,10 +39,16 @@ export class NavBarComponent implements OnInit{
   }
 
   checkLogin() {
-    if(localStorage.getItem("currentUser")) {
-      this.logeado = true
+
+    let currentUser = localStorage.getItem("currentUser");
+
+    if(currentUser) {
+      this.logeado = true;
+      this.usuarioSesion = currentUser.toString();
+      //console.log(localStorage.getItem("currentUser"))
     } else {
       this.logeado = false
+      this.usuarioSesion = "";
     }
   }
 }
