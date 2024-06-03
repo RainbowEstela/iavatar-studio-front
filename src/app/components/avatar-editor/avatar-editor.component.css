@@ -42,6 +42,18 @@
     animation:spin 1s linear infinite;
 }
 
+.avatar-ia {
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+.avatar-ia img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
 /* ANIMACION DE PANTALLA DE CARGA */
 @-moz-keyframes spin { 
 100% { -moz-transform: rotate(360deg); } 

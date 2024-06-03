@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import $, { event } from 'jquery';
+import { BackIavatarService } from '../../core/services/back-iavatar.service';
 
 @Component({
   selector: 'app-avatar-editor',
@@ -10,11 +12,19 @@ import $, { event } from 'jquery';
 })
 export class AvatarEditorComponent implements OnInit {
 
-  @Input() id:Number = -1;
+  id:Number = -1;
 
-  Prompt:String = "";
+  prompt:String = "";
+
+  imagenActual:any = null;
+  
+  promptArray:Array<String> = [];
 
   favorito:boolean = false;
+
+  constructor(private routeParams: ActivatedRoute, private service: BackIavatarService) {
+
+  }
 
   ngOnInit(): void {
 
@@ -24,18 +34,212 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='elecc-des']").hide();
 
     // inicializar eventos
-    $("div[class~='elecc']").on("click",this.eleccionMenu);
-    $("div[class~='gen-elecc-des']").on("click",this.eleccionGenero);
-    $("div[class~='car-elecc-des']").on("click",this.eleccionCara);
-    $("div[class~='pel-elecc-des']").on("click",this.eleccionPeinado);
-    $("div[class~='ojo-elecc-des']").on("click",this.eleccionOjos);
-    $("div[class~='nar-elecc-des']").on("click",this.eleccionNariz);
-    $("div[class~='boc-elecc-des']").on("click",this.eleccionBoca);
-    $("div[class~='ojo-color-elecc']").on("click",this.eleccionColorOjos);
-    $("div[class~='pel-color-elecc']").on("click",this.eleccionColorPelo);
+    $("div[class~='elecc']").on("click",this.eleccionMenu.bind(this));
+    $("div[class~='gen-elecc-des']").on("click",this.eleccionGenero.bind(this));
+    $("div[class~='car-elecc-des']").on("click",this.eleccionCara.bind(this));
+    $("div[class~='pel-elecc-des']").on("click",this.eleccionPeinado.bind(this));
+    $("div[class~='ojo-elecc-des']").on("click",this.eleccionOjos.bind(this));
+    $("div[class~='nar-elecc-des']").on("click",this.eleccionNariz.bind(this));
+    $("div[class~='boc-elecc-des']").on("click",this.eleccionBoca.bind(this));
+    $("div[class~='ojo-color-elecc']").on("click",this.eleccionColorOjos.bind(this));
+    $("div[class~='pel-color-elecc']").on("click",this.eleccionColorPelo.bind(this));
+
+
+    // comprobar si piden mostar un avatar
+
+    $("div[class~='loading']").show();
+
+    this.routeParams.params.subscribe(params => {
+      this.id = +params['id']; // el mas convierte el parametro en numero
+
+      this.service.findByid(this.id).subscribe({
+        next: (data) => 
+        {
+          this.imagenActual = this.service.imgUrl + data.imagenNombre;
+          $("div[class~='loading']").hide();
+        },
+        error: (error) =>
+        {
+          $("div[class~='loading']").hide();
+          console.log("hubo un error");
+        }
+      })
+    });
+
+    
+
+
 
     // inicializar caracteristicas
-    
+
+    // genero
+    $("div[class~='gen-elecc-des']").removeClass("elecc-activa");
+
+    let generoDiv = $("div[class~='gen-elecc-des']").first()
+    generoDiv.addClass("elecc-activa");
+    let generoImagen = generoDiv.attr("imagen");
+    let generoPrompt = generoDiv.attr("texto");
+
+    if(generoPrompt) {
+      this.hacerPrompt(generoPrompt, 0);
+    }
+
+    if(generoImagen) {
+      $("div[class~='torso'] > img").hide();
+      $("img[class~='" + generoImagen +"']").show();
+    }
+
+    // cara
+    $("div[class~='car-elecc-des']").removeClass("elecc-activa");
+    let caraDiv = $("div[class~='car-elecc-des']").first();
+    caraDiv.addClass("elecc-activa");
+    let caraImagen = caraDiv.attr("imagen");
+    let caraPrompt = caraDiv.attr("texto");
+
+    if(caraPrompt) {
+      this.hacerPrompt(caraPrompt, 6);
+    }
+
+    if(caraImagen) {
+      $("div[class~='cabeza'] > img").hide();
+      $("img[class~='" + caraImagen +"']").show();
+    }
+
+    // pelo
+    $("div[class~='pel-elecc-des']").removeClass("elecc-activa");
+    let peinadoDiv = $("div[class~='pel-elecc-des']").first();
+    peinadoDiv.addClass("elecc-activa");
+    let peinadoImagen = peinadoDiv.attr("imagen");
+    let peinadoBack = peinadoDiv.attr("imagen-back")
+    let peinadoPrompt = peinadoDiv.attr("texto");
+
+    if(peinadoPrompt) {
+      this.hacerPrompt(peinadoPrompt, 4);
+    }
+
+    if(peinadoImagen) {
+      $("div[class~='peinados'] > img").hide();
+      $("img[class~='" + peinadoImagen +"']").show();
+
+      $("div[class~='fondo'] > img").hide();
+      if(peinadoBack) {
+        $("img[class~='" + peinadoBack +"']").show();
+      }
+    }
+
+    // ojos
+    $("div[class~='ojo-elecc-des']").removeClass("elecc-activa");
+    let ojosDiv = $("div[class~='ojo-elecc-des']").first();
+    ojosDiv.addClass("elecc-activa");
+    let ojosImagen = ojosDiv.attr("imagen");
+    let ojosPrompt = ojosDiv.attr("texto");
+
+    if(ojosPrompt) {
+      this.hacerPrompt(ojosPrompt, 1);
+    }
+
+    if(ojosImagen) {
+      $("div[class~='ojos'] > img").hide();
+      $("img[class~='" + ojosImagen +"']").show();
+    }
+
+    // nariz
+    $("div[class~='nar-elecc-des']").removeClass("elecc-activa");
+    let narizDiv = $("div[class~='nar-elecc-des']").first();
+    narizDiv.addClass("elecc-activa");
+    let narizImagen = narizDiv.attr("imagen");
+    let narizPrompt = narizDiv.attr("texto");
+
+    if(narizPrompt) {
+      this.hacerPrompt(narizPrompt, 7);
+    }
+
+    if(narizImagen) {
+      $("div[class~='narices'] > img").hide();
+      $("img[class~='" + narizImagen +"']").show();
+    }
+
+    // boca
+    $("div[class~='boc-elecc-des']").removeClass("elecc-activa");
+    let bocaDiv = $("div[class~='boc-elecc-des']").first();
+    bocaDiv.addClass("elecc-activa");
+    let bocaImagen = bocaDiv.attr("imagen");
+    let bocaPrompt = bocaDiv.attr("texto");
+
+    if(bocaPrompt) {
+      this.hacerPrompt(bocaPrompt, 5);
+    }
+
+    if(bocaImagen) {
+      $("div[class~='bocas'] > img").hide();
+      $("img[class~='" + bocaImagen +"']").show();
+    }
+
+    // color pelo
+    $("div[class~='pel-color-elecc']").removeClass("elecc-activa");
+    let colorPeloDiv = $("div[class~='pel-color-elecc']").first();
+    colorPeloDiv.addClass("elecc-activa");
+    let colorPeloColor = colorPeloDiv.attr("color");
+    let colorPeloPrompt = colorPeloDiv.attr("texto");
+
+    if(colorPeloPrompt) {
+      this.hacerPrompt(colorPeloPrompt, 3);
+    }
+
+    if(colorPeloColor) {
+      
+      $("div[class~='fondo'] > img").removeClass("negro");
+      $("div[class~='fondo'] > img").removeClass("marron");
+      $("div[class~='fondo'] > img").removeClass("rojo");
+      $("div[class~='fondo'] > img").removeClass("amarillo");
+      $("div[class~='fondo'] > img").removeClass("verde");
+      $("div[class~='fondo'] > img").removeClass("azul");
+
+      $("div[class~='peinados'] > img").removeClass("negro");
+      $("div[class~='peinados'] > img").removeClass("marron");
+      $("div[class~='peinados'] > img").removeClass("rojo");
+      $("div[class~='peinados'] > img").removeClass("amarillo");
+      $("div[class~='peinados'] > img").removeClass("verde");
+      $("div[class~='peinados'] > img").removeClass("azul");
+
+      $("img[class~='cejas']").removeClass("negro");
+      $("img[class~='cejas']").removeClass("marron");
+      $("img[class~='cejas']").removeClass("rojo");
+      $("img[class~='cejas']").removeClass("amarillo");
+      $("img[class~='cejas']").removeClass("verde");
+      $("img[class~='cejas']").removeClass("azul");
+      
+      $("div[class~='fondo'] > img").addClass(colorPeloColor);
+      $("div[class~='peinados'] > img").addClass(colorPeloColor);
+      $("img[class~='cejas']").addClass(colorPeloColor);
+
+    }
+
+    // color ojos
+    $("div[class~='ojo-color-elecc']").removeClass("elecc-activa");
+    let colorOjosDiv = $("div[class~='ojo-color-elecc']").first();
+    colorOjosDiv.addClass("elecc-activa");
+    let colorOjosColor = colorOjosDiv.attr("color");
+    let colorOjosPrompt = colorOjosDiv.attr("texto");
+
+    if(colorOjosPrompt) {
+      this.hacerPrompt(colorOjosPrompt, 2);
+    }
+
+    if(colorOjosColor) {
+      
+      $("img[class~='iris']").removeClass("negro");
+      $("img[class~='iris']").removeClass("marron");
+      $("img[class~='iris']").removeClass("rojo");
+      $("img[class~='iris']").removeClass("amarillo");
+      $("img[class~='iris']").removeClass("verde");
+      $("img[class~='iris']").removeClass("azul");
+      
+      $("img[class~='iris']").addClass(colorOjosColor);
+    }
+
+    let coletilla = "con una sonrisa ligera. muy importante que el estilo sea pop art y muy importante que el fondo sea blanco. muy importatente que solo haya una sola persona";
+    this.hacerPrompt(coletilla, 8);
   }
 
   eleccionMenu(e:any) {
@@ -55,11 +259,15 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='gen-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='gen-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='gen-elecc-des']").attr("imagen")
+    let imagen = $(e.target).closest("div[class~='gen-elecc-des']").attr("imagen");
+    let texto = $(e.target).closest("div[class~='gen-elecc-des']").attr("texto");
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='torso'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      
+      this.hacerPrompt(texto, 0);
     }
   }
 
@@ -68,11 +276,14 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='car-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='car-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='car-elecc-des']").attr("imagen")
+    let imagen = $(e.target).closest("div[class~='car-elecc-des']").attr("imagen")
+    let texto = $(e.target).closest("div[class~='car-elecc-des']").attr("texto")
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='cabeza'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      this.hacerPrompt(texto, 6);
     }
   }
 
@@ -81,13 +292,16 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='pel-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='pel-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='pel-elecc-des']").attr("imagen");
-    var imagenBack = $(e.target).closest("div[class~='pel-elecc-des']").attr("imagen-back");
+    let imagen = $(e.target).closest("div[class~='pel-elecc-des']").attr("imagen");
+    let texto = $(e.target).closest("div[class~='pel-elecc-des']").attr("texto");
+    let imagenBack = $(e.target).closest("div[class~='pel-elecc-des']").attr("imagen-back");
   
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='peinados'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      this.hacerPrompt(texto, 4);
 
       $("div[class~='fondo'] > img").hide();
       if(imagenBack) {
@@ -101,11 +315,14 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='ojo-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='ojo-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='ojo-elecc-des']").attr("imagen")
+    let imagen = $(e.target).closest("div[class~='ojo-elecc-des']").attr("imagen")
+    let texto = $(e.target).closest("div[class~='ojo-elecc-des']").attr("texto")
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='ojos'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      this.hacerPrompt(texto, 1);
     }
   }
 
@@ -114,11 +331,14 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='nar-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='nar-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='nar-elecc-des']").attr("imagen")
+    let imagen = $(e.target).closest("div[class~='nar-elecc-des']").attr("imagen")
+    let texto = $(e.target).closest("div[class~='nar-elecc-des']").attr("texto")
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='narices'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      this.hacerPrompt(texto, 7);
     }
   }
 
@@ -127,11 +347,14 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='boc-elecc-des']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='boc-elecc-des']").addClass("elecc-activa");
 
-    var imagen = $(e.target).closest("div[class~='boc-elecc-des']").attr("imagen")
+    let imagen = $(e.target).closest("div[class~='boc-elecc-des']").attr("imagen")
+    let texto = $(e.target).closest("div[class~='boc-elecc-des']").attr("texto")
 
-    if(imagen) {
+    if(imagen && texto) {
       $("div[class~='bocas'] > img").hide();
       $("img[class~='" + imagen +"']").show();
+
+      this.hacerPrompt(texto, 5);
     }
   }
 
@@ -140,11 +363,11 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='ojo-color-elecc']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='ojo-color-elecc']").addClass("elecc-activa");
 
-    var color = $(e.target).closest("div[class~='ojo-color-elecc']").attr("color")
-    
+    let color = $(e.target).closest("div[class~='ojo-color-elecc']").attr("color")
+    let texto = $(e.target).closest("div[class~='ojo-color-elecc']").attr("texto")
 
    
-    if(color) {
+    if(color && texto) {
       
       $("img[class~='iris']").removeClass("negro");
       $("img[class~='iris']").removeClass("marron");
@@ -154,6 +377,8 @@ export class AvatarEditorComponent implements OnInit {
       $("img[class~='iris']").removeClass("azul");
       
       $("img[class~='iris']").addClass(color);
+
+      this.hacerPrompt(texto, 2);
     }
   }
 
@@ -163,11 +388,11 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='pel-color-elecc']").removeClass("elecc-activa");
     $(e.target).closest("div[class~='pel-color-elecc']").addClass("elecc-activa");
 
-    var color = $(e.target).closest("div[class~='pel-color-elecc']").attr("color")
-    
+    let color = $(e.target).closest("div[class~='pel-color-elecc']").attr("color")
+    let texto = $(e.target).closest("div[class~='pel-color-elecc']").attr("texto")
 
    
-    if(color) {
+    if(color && texto) {
       
       $("div[class~='fondo'] > img").removeClass("negro");
       $("div[class~='fondo'] > img").removeClass("marron");
@@ -194,8 +419,21 @@ export class AvatarEditorComponent implements OnInit {
       $("div[class~='peinados'] > img").addClass(color);
       $("img[class~='cejas']").addClass(color);
 
+      this.hacerPrompt(texto, 3);
     }
   }
 
+  // updatea el array y regenera el prompt
+  hacerPrompt(texto:String, posicion:any) {
+    this.promptArray[posicion] = texto;
 
+    this.prompt = this.promptArray.join(", ");
+
+    console.log(this.prompt);
+  }
+
+  // updatea los datos del avatar mostrados en pantalla
+  updatearAvatar() {
+    
+  }
 }

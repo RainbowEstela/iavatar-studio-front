@@ -29,9 +29,9 @@ export class NavBarComponent implements OnInit{
   logout() {
     console.log("borrando sesion")
 
-    if(localStorage.getItem("currentUser") || localStorage.getItem("token")) {
-      localStorage.removeItem("currentUser");
-      localStorage.removeItem("token");
+    if(sessionStorage.getItem("currentUser") || sessionStorage.getItem("token")) {
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("token");
 
       this.checkLogin();
       this.router.navigate(["/home"])
@@ -40,12 +40,11 @@ export class NavBarComponent implements OnInit{
 
   checkLogin() {
 
-    let currentUser = localStorage.getItem("currentUser");
+    let currentUser = sessionStorage.getItem("currentUser");
 
     if(currentUser) {
       this.logeado = true;
       this.usuarioSesion = currentUser.toString();
-      //console.log(localStorage.getItem("currentUser"))
     } else {
       this.logeado = false
       this.usuarioSesion = "";

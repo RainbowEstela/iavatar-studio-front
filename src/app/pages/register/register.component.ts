@@ -92,8 +92,8 @@ export class RegisterComponent implements OnInit {
               next: (data) => 
               {
                 // guardamos la sesion en local storaga
-                localStorage.setItem("currentUser", data.username.toString())
-                localStorage.setItem("token", data.token.toString())
+                sessionStorage.setItem("currentUser", data.username.toString())
+                sessionStorage.setItem("token", data.token.toString())
                 
                 // redirigimos a la pagina principal
                 this.router.navigate(['/home']);

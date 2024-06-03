@@ -33,7 +33,7 @@ export class LikeComponent {
           this.avatares.push({
             "id":data[key].id,
             "fecha":data[key].fechaCreacion,
-            "img":data[key].imagenNombre,
+            "img": this.service.imgUrl + data[key].imagenNombre,
             "favorito":data[key].favorito,
           })
         }

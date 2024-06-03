@@ -9,6 +9,7 @@ import { RegisterComponent } from './pages/register/register.component';
 export const routes: Routes = [
     {path: 'home', title: "IAvatar Studio - Home", component: HomeComponent},
     {path: 'editor', title: "IAvatar Studio - Editor",component: EditorComponent},
+    {path: 'editor/:id', title: "IAvatar Studio - Editor",component: EditorComponent},
     {path: 'historico', title: "IAvatar Studio - Historico",component: HistoricoComponent},
     {path: 'like', title: "IAvatar Studio - Favoritos",component: LikeComponent},
     {path: 'login', title: "IAvatar Studio - Login",component: LoginComponent},

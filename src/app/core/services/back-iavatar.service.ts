@@ -7,6 +7,8 @@ import { IAimage, UserIavatar, UserRegister } from '../../interfaces/iavatar-int
   providedIn: 'root'
 })
 export class BackIavatarService {
+
+  imgUrl = "http://localhost:8080/spring-imagenes/"
   
   baseUrl = "http://localhost:8080/"
 
@@ -19,7 +21,7 @@ export class BackIavatarService {
   httpOptionsAuth = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`,
+      'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
     })
   }
 
@@ -66,7 +68,7 @@ export class BackIavatarService {
   // llamada mostrar historico
   imagenesUsuario(): Observable<Array<IAimage>> {
 
-    let currentUser = localStorage.getItem("currentUser");
+    let currentUser = sessionStorage.getItem("currentUser");
 
     if(!currentUser) {
       currentUser = "";
@@ -92,7 +94,7 @@ export class BackIavatarService {
 
   // llamada mostrar favoritos
   imagenesFavorito(): Observable<Array<IAimage>> {
-    let currentUser = localStorage.getItem("currentUser");
+    let currentUser = sessionStorage.getItem("currentUser");
 
     if(!currentUser) {
       currentUser = "";
@@ -133,8 +135,30 @@ export class BackIavatarService {
     }))
   }
 
+
+  // llamada para deshacer favorito
   deshacerFavorito(id:Number): Observable<IAimage> {
     return this.http.get<IAimage>( this.baseUrl + "api/imagen/desfavorito/"+ id, this.httpOptionsAuth)
+    .pipe(catchError((err:HttpErrorResponse) => {
+
+      let errorMessage = "";
+
+      if(err.error instanceof ErrorEvent) {
+        errorMessage = "[Error]: " + err.message;
+      } else {
+        errorMessage = "[Error]: Codigo: " + err.status + ", Mensaje: " + err.message;
+      }
+
+      return throwError(() => errorMessage)
+    }))
+  }
+
+
+
+  // llamada para buscar por id
+  findByid(id:Number): Observable<IAimage> {
+    console.log(this.httpOptionsAuth);
+    return this.http.get<IAimage>( this.baseUrl + "api/imagen/mostrar/"+ id, this.httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";

@@ -3,7 +3,7 @@
 @if(favorito) {
     <div class="marco marco-favorito">
         <div class="container-img">
-            <img src="assets/imgs_cliente/{{img}}" alt="imagen de avatar">
+            <img [src]="img" alt="imagen de avatar">
         </div>
         
         
@@ -44,7 +44,7 @@
 } @else {
     <div class="marco">
         <div class="container-img">
-            <img src="assets/imgs_cliente/{{img}}" alt="imagen de avatar">
+            <img [src]="img" alt="imagen de avatar">
         </div>
         
         
