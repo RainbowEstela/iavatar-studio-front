@@ -18,6 +18,12 @@
     gap: 10px;
 }
 
+.mensaje-dis {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .disclaimer-cross div {
     cursor: pointer;
 }

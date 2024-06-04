@@ -18,14 +18,6 @@ export class BackIavatarService {
     })
   }
 
-  httpOptionsAuth = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
-    })
-  }
-
-
   constructor(private http: HttpClient) { }
 
 
@@ -68,15 +60,21 @@ export class BackIavatarService {
   // llamada mostrar historico
   imagenesUsuario(): Observable<Array<IAimage>> {
 
+    console.log(sessionStorage.getItem("token"));
     let currentUser = sessionStorage.getItem("currentUser");
 
     if(!currentUser) {
       currentUser = "";
     }
 
-    console.log(this.baseUrl + "api/imagen/todas/" + currentUser);
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
 
-    return this.http.get<Array<IAimage>>( this.baseUrl + "api/imagen/todas/" + currentUser, this.httpOptionsAuth)
+    return this.http.get<Array<IAimage>>( this.baseUrl + "api/imagen/todas/" + currentUser, httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";
@@ -95,6 +93,13 @@ export class BackIavatarService {
   // llamada mostrar favoritos
   imagenesFavorito(): Observable<Array<IAimage>> {
     let currentUser = sessionStorage.getItem("currentUser");
+  
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
 
     if(!currentUser) {
       currentUser = "";
@@ -102,7 +107,7 @@ export class BackIavatarService {
 
     console.log(this.baseUrl + "api/imagen/todas/" + currentUser);
 
-    return this.http.get<Array<IAimage>>( this.baseUrl + "api/imagen/todas/" + currentUser + "/favoritos", this.httpOptionsAuth)
+    return this.http.get<Array<IAimage>>( this.baseUrl + "api/imagen/todas/" + currentUser + "/favoritos", httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";
@@ -120,7 +125,14 @@ export class BackIavatarService {
 
   // llamada para hacer favorito
   hacerFavorito(id:Number): Observable<IAimage> {
-    return this.http.get<IAimage>( this.baseUrl + "api/imagen/favorito/"+ id, this.httpOptionsAuth)
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
+
+    return this.http.get<IAimage>( this.baseUrl + "api/imagen/favorito/"+ id, httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";
@@ -138,7 +150,15 @@ export class BackIavatarService {
 
   // llamada para deshacer favorito
   deshacerFavorito(id:Number): Observable<IAimage> {
-    return this.http.get<IAimage>( this.baseUrl + "api/imagen/desfavorito/"+ id, this.httpOptionsAuth)
+
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
+
+    return this.http.get<IAimage>( this.baseUrl + "api/imagen/desfavorito/"+ id, httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";
@@ -157,8 +177,15 @@ export class BackIavatarService {
 
   // llamada para buscar por id
   findByid(id:Number): Observable<IAimage> {
-    console.log(this.httpOptionsAuth);
-    return this.http.get<IAimage>( this.baseUrl + "api/imagen/mostrar/"+ id, this.httpOptionsAuth)
+
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
+
+    return this.http.get<IAimage>( this.baseUrl + "api/imagen/mostrar/"+ id, httpOptionsAuth)
     .pipe(catchError((err:HttpErrorResponse) => {
 
       let errorMessage = "";
@@ -173,5 +200,30 @@ export class BackIavatarService {
     }))
   }
 
+
+  // llama a la api para crear un nuevo avatar
+  crearAvatar(peticion:String): Observable<IAimage> {
+
+    let httpOptionsAuth = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+      })
+    }
+
+    return this.http.post<IAimage>( this.baseUrl +"api/imagen/nueva", {peticion:peticion},httpOptionsAuth)
+    .pipe(catchError((err:HttpErrorResponse) => {
+
+      let errorMessage = "";
+
+      if(err.error instanceof ErrorEvent) {
+        errorMessage = "[Error]: " + err.message;
+      } else {
+        errorMessage = "[Error]: Codigo: " + err.status + ", Mensaje: " + err.message;
+      }
+
+      return throwError(() => errorMessage)
+    }))
+  }
 
 }
