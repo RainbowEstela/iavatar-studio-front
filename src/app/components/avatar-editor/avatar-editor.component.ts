@@ -236,7 +236,7 @@ export class AvatarEditorComponent implements OnInit {
        
       }
    
-      let coletilla = "con una sonrisa ligera. muy importante que el estilo sea pop art y muy importante que el fondo sea blanco. muy importatente que solo haya una sola persona";
+      let coletilla = "con una sonrisa ligera. me gustaría que fuera una cara tipo realista liegro toque fantasia (dungeons and dragons)  . que el fondo sea blanco. que solo haya una sola persona";
       this.hacerPrompt(coletilla, 8);
     });
 
