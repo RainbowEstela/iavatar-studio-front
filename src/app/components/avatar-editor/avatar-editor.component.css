@@ -110,6 +110,11 @@
     gap: 10px;
 }
 
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
 .p20 {
     padding-top: 20px;
 }
@@ -122,6 +127,10 @@
     box-sizing: border-box;
     cursor: pointer;
 
+}
+
+.btn-elec p{
+    padding: 10px;
 }
 
 .elecc-des img {

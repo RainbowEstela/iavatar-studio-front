@@ -45,6 +45,8 @@ export class AvatarEditorComponent implements OnInit {
     $("div[class~='boc-elecc-des']").on("click",this.eleccionBoca.bind(this));
     $("div[class~='ojo-color-elecc']").on("click",this.eleccionColorOjos.bind(this));
     $("div[class~='pel-color-elecc']").on("click",this.eleccionColorPelo.bind(this));
+    $("div[class~='esti-elecc']").on("click",this.eleccionEstilo.bind(this));
+    $("div[class~='tema-elecc']").on("click",this.eleccionTematica.bind(this));
 
 
     // comprobar si piden mostar un avatar
@@ -233,17 +235,36 @@ export class AvatarEditorComponent implements OnInit {
           $("img[class~='iris']").addClass(colorOjosColor);
         }
 
-       
-      }
-   
-      let coletilla = "con una sonrisa ligera. me gustaría que fuera una cara tipo realista liegro toque fantasia (dungeons and dragons)  . que el fondo sea blanco. que solo haya una sola persona";
-      this.hacerPrompt(coletilla, 8);
-    });
+        // estilo
+        $("div[class~='esti-elecc']").removeClass("elecc-activa");
+        let estiloDiv = $("div[class~='esti-elecc']").first();
+        estiloDiv.addClass("elecc-activa");
+        
+        let estiloPrompt = estiloDiv.attr("texto");
 
-    $("div[class~='loading']").hide();
+        if(estiloPrompt) {
+          this.hacerPrompt(estiloPrompt, 8);
+        }
+
+        // temática
+        $("div[class~='tema-elecc']").removeClass("elecc-activa");
+        let temaDiv = $("div[class~='tema-elecc']").first();
+        temaDiv.addClass("elecc-activa");
+        
+        let temaPrompt = temaDiv.attr("texto");
+
+        if(temaPrompt) {
+          this.hacerPrompt(temaPrompt, 9);
+        }
+      }
 
     
    
+      let coletilla = "con una sonrisa ligera. que el fondo sea blanco. que solo haya una sola persona";
+      this.hacerPrompt(coletilla, 10);
+    });
+
+    $("div[class~='loading']").hide();
   }
 
   eleccionMenu(e:any) {
@@ -431,6 +452,34 @@ export class AvatarEditorComponent implements OnInit {
       $("img[class~='cejas']").addClass(color);
 
       this.hacerPrompt(texto, 3);
+      this.updatearAvatar("",false,"",-1,true);
+    }
+  }
+
+  // cambia la eleccion del estilo
+  eleccionEstilo(e:any) {
+    $("div[class~='esti-elecc']").removeClass("elecc-activa");
+    $(e.target).closest("div[class~='esti-elecc']").addClass("elecc-activa");
+
+   
+    let texto = $(e.target).closest("div[class~='esti-elecc']").attr("texto");
+
+    if(texto) {  
+      this.hacerPrompt(texto, 8);
+      this.updatearAvatar("",false,"",-1,true);
+    }
+  }
+
+  // cambia la eleccion de la tematica
+  eleccionTematica(e:any) {
+    $("div[class~='tema-elecc']").removeClass("elecc-activa");
+    $(e.target).closest("div[class~='tema-elecc']").addClass("elecc-activa");
+
+   
+    let texto = $(e.target).closest("div[class~='tema-elecc']").attr("texto");
+
+    if(texto) {  
+      this.hacerPrompt(texto, 9);
       this.updatearAvatar("",false,"",-1,true);
     }
   }
@@ -629,6 +678,29 @@ export class AvatarEditorComponent implements OnInit {
           $("img[class~='iris']").addClass(colorOjosColor);
         }
 
+        // estilo
+        $("div[class~='esti-elecc']").removeClass("elecc-activa");
+        let estiloDiv = $("div[texto='" +promptArray[8] +"']").first();
+        estiloDiv.addClass("elecc-activa");
+        
+        let estiloPrompt = estiloDiv.attr("texto");
+
+        if(estiloPrompt) {
+          this.hacerPrompt(estiloPrompt, 8);
+        }
+
+        // temática
+        $("div[class~='tema-elecc']").removeClass("elecc-activa");
+        let temaDiv = $("div[texto='" +promptArray[9] +"']").first();
+        temaDiv.addClass("elecc-activa");
+        
+        let temaPrompt = temaDiv.attr("texto");
+
+        if(temaPrompt) {
+          this.hacerPrompt(temaPrompt, 9);
+        }
+         
+
         console.log(this.prompt);
     }
   }
@@ -664,33 +736,33 @@ export class AvatarEditorComponent implements OnInit {
     
   }
 
-    // cambia a favorito la imagen
-    hacerFavorito() {
-      this.service.hacerFavorito(this.id).subscribe({
-        next: (data) => 
-        {
-          this.favorito = data.favorito;
-        },
-        error: (error) =>
-        {
-          console.log("hubo un error");
-        }
-      })
-    }
-  
-    // cambia a no favorito la imagen
-    deshacerFavorito() {
-      this.service.deshacerFavorito(this.id).subscribe({
-        next: (data) => 
-        {
-          this.favorito = data.favorito;
-        },
-        error: (error) =>
-        {
-          console.log("hubo un error");
-        }
-      })
-    }
+  // cambia a favorito la imagen
+  hacerFavorito() {
+    this.service.hacerFavorito(this.id).subscribe({
+      next: (data) => 
+      {
+        this.favorito = data.favorito;
+      },
+      error: (error) =>
+      {
+        console.log("hubo un error");
+      }
+    })
+  }
+
+  // cambia a no favorito la imagen
+  deshacerFavorito() {
+    this.service.deshacerFavorito(this.id).subscribe({
+      next: (data) => 
+      {
+        this.favorito = data.favorito;
+      },
+      error: (error) =>
+      {
+        console.log("hubo un error");
+      }
+    })
+  }
 
  
 
