@@ -8,9 +8,9 @@ import { IAimage, UserIavatar, UserRegister } from '../../interfaces/iavatar-int
 })
 export class BackIavatarService {
 
-  imgUrl = "http://localhost:8080/spring-imagenes/"
+  imgUrl = "http://35.153.23.41:8080/spring-imagenes/"
   
-  baseUrl = "http://localhost:8080/"
+  baseUrl = "http://35.153.23.41:8080/"
 
   httpOptions = {
     headers: new HttpHeaders({
